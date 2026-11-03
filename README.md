@@ -2,97 +2,128 @@
 
 ### AI-powered food production monitoring and quality intelligence
 
-**Burger meat production monitoring · Live visual inspection · Voice-guided mixer operators · Role-aware quality alerts · Human-supervised decisions**
+**End-to-end burger meat production monitoring · Real-time visual inspection · Voice-guided mixer operators · Role-based quality alerts · Human-supervised decisions**
 
-QCVision (named **VisionQC** in the application source) is an offline-first Windows desktop quality-intelligence platform designed for food-manufacturing workflows, especially **burger meat preparation and mixing**. Its intended operating workflow connects observations and quality records from incoming raw meat through preparation, grinding, ingredient dosing, mixing, in-process inspection, and discharge.
+QCVision (named **VisionQC** in the application source) is an **offline-first Windows desktop platform** designed for food manufacturing, with a particular focus on **burger meat preparation and mixing**. Its operating vision is to connect quality evidence and production context across the workflow—from incoming meat reception and preparation through grinding, ingredient dosing, mixing, process inspection and product discharge—so production teams can identify issues early, communicate clearly and maintain a traceable record.
 
-Rather than functioning only as a defect detector, QCVision combines **computer vision, compatible cameras, production context, operator headset communication, QC review, factory knowledge, and analytics**. Operator, quality engineer, and production manager interfaces are designed for different decisions and levels of detail.
+Unlike a standalone defect detector, QCVision brings together **computer vision, live cameras, process-quality assessment, operator communication, factory knowledge and production analytics**. It is designed to assist people at different responsibility levels: the **mixer/kettle operator**, **quality-control specialist** and **production/project manager**.
 
-> **Current status:** Engineering prototype / pre-production. Capabilities represented in source code and tests are not evidence of commissioning every station or proving food-safety compliance at a factory. Physical integration, calibration, validation, role-specific routing, and site acceptance remain deployment-dependent.
+> **Status and scope:** Active engineering prototype / pre-production software. The repository includes application code and automated tests for many of the capabilities described below. The full reception-to-discharge operating chain is the intended food-production workflow; actual coverage depends on configured inspection points, cameras, integrations and local factory procedures. Neither end-to-end commissioning nor food-safety certification is claimed.
 
-## End-to-end burger meat production workflow
+## What makes QCVision different?
 
-| Production stage | Intended monitoring and quality context |
+- **Food-production-first workflow:** Organize quality checks around burger meat production and mixing, not merely isolated images.
+- **Product and process health:** Separate the visible quality of meat mixture (e.g., color, texture, mixing coverage and visible aeration) from process continuity and behavior; a healthy-looking process does not override poor product-quality evidence.
+- **Voice assistance on the production floor:** Send concise, actionable spoken alerts through the Windows audio output/headset; support operator wake-word interaction using **“Vision” / “ویژن”**, with Persian speech recognition when available.
+- **Role-aware response:** Present immediate operational warnings to operators, evidence and investigation context to QC staff, and trends, exceptions and KPIs to management. Site-specific routing and escalation rules require configuration and validation.
+- **Explainable, auditable decisions:** Link measurements, detector rules, scores, snapshots, events and human acknowledgements.
+- **Offline-first architecture:** Run core local vision and quality workflows without requiring cloud AI. Optional Gemini review needs credentials, connectivity and appropriate data-sharing approval.
+
+## Burger meat production: intended end-to-end monitoring workflow
+
+| Stage | Quality and operational monitoring focus |
 | --- | --- |
-| Raw meat reception | Batch/lot information, receipt inspection and incoming-quality evidence |
-| Preparation and grinding | Line status, visible product condition and configured checks |
-| Ingredient addition | Recipe/batch context and connected instrument or operator inputs where available |
-| Mixer / kettle operation | Live video, visual mixture indicators, process continuity and operator alerts |
-| In-process quality control | Image evidence, reference comparisons, rules, QC investigation and approvals |
-| Discharge / handoff | Final evidence, batch disposition, traceability and reporting |
+| **1. Raw meat reception** | Lot identity, receipt context, inspection records and available incoming-quality evidence |
+| **2. Preparation and grinding** | Production stage/line context, visible condition and configured process checks |
+| **3. Ingredients and formulation** | Batch and recipe context, ingredient-related checks where records or sensors are connected |
+| **4. Mixing / mixer-kettle operation** | Live camera observation, mixture color and texture indicators, coverage, visible aeration, process events and operator alerts |
+| **5. In-process QC** | Snapshot/video evidence, Golden Batch comparison, detector scores, accept/reject review and QC escalation |
+| **6. Discharge and handoff** | Final visual/operational evidence, batch disposition, traceable quality records and reporting |
 
-Visual inspection **cannot** directly establish microbial safety, precise composition, or internal temperature. Those require calibrated instruments, sampling, or laboratory tests.
+*This table describes the intended production-wide deployment pattern. It is not a claim that every station is already connected to physical factory equipment or that every property can be measured from images. Temperature, composition, pathogen status and other non-visual properties require appropriate calibrated instruments, sampling or laboratory procedures.*
 
-## Features at a glance
+## Role-based communication and alerts
 
-| Capability | What is represented in the codebase |
+| Role | Main interaction | Example alert or information |
+| --- | --- | --- |
+| **Mixer / line operator** | Live status, short spoken headset alerts, voice queries and acknowledgements | “Mixing appearance is outside the configured reference. Check the batch and contact QC.” |
+| **QC specialist / quality engineer** | Evidence review, inspection scores, batch history, root-cause hypotheses and controlled disposition | “A sustained visual deviation needs review against the approved Golden Batch.” |
+| **Production / project manager** | Supervisory dashboards, production trends, OEE, recurring exceptions and escalation summaries | “Repeated mixing deviations have affected multiple runs; review the trend and assigned actions.” |
+
+*Examples illustrate intended role-specific messaging, not exact guaranteed application wording or verified push delivery to every role. Headset output is based on the configured Windows audio device; factory communications and permissions must be tested on site.*
+
+## At a glance
+
+| Area | Current codebase capabilities |
 | --- | --- |
-| Image inspection | OpenCV/NumPy visual measurement, region-of-interest selection, rule-based interpretation and evidence |
-| Video and cameras | Live USB cameras, RTSP/HTTP sources, multi-camera configuration and video temporal analysis |
-| Mixing quality intelligence | Product-health versus process-health assessment, detector/score/trigger workflows, visual references and Golden Batch comparisons |
-| Operator communication | Spoken headset alerts, voice interaction and “Vision / ویژن” wake-word workflows; deployment depends on hardware/Windows speech support |
-| QC specialist workflow | Batch inspection, review and approval gates, events, history, traceable decisions and reports |
-| Management oversight | Production trends, SPC, Cp/Cpk, downtime, OEE and dashboards |
-| Factory intelligence | Factory Memory, knowledge graph, root-cause hypotheses, predictive quality and AI Factory Engineer briefings |
-| Optional cloud AI | Google Gemini image/video review with an approved connection, credentials and data-sharing policy |
-| Integration | Local REST/API-key interfaces, audit/RBAC workflows, offline synchronization and configurable connector checks |
-| Windows delivery | Development scripts, Windows build/installer configurations and release validation utilities |
+| **Visual analysis** | OpenCV/NumPy measurements, ROI selection, rule-based detectors, explainable evidence and visualizations |
+| **Cameras and video** | USB/live camera analysis, video temporal trends, RTSP/HTTP source support and multi-camera configuration |
+| **Food process inspection** | Configurable detector/score/trigger/action workflows, product-vs-process-health assessment, specialized mixing inspection profiles and Golden Batch reference comparison |
+| **Operator assistance** | Spoken quality alerts, serialized headset/audio output, Persian/English recognition fallback and “Vision/ویژن” wake-word interaction |
+| **QC operations** | Inspection projects, batch workspace, traceable events, human approvals, reports and inspection history |
+| **Quality intelligence** | Factory Memory, root-cause support, knowledge graph, predictive quality workflows and AI Factory Engineer briefings |
+| **Analytics** | SPC and process capability indicators, shifts, runs, downtime, OEE and management dashboards |
+| **Enterprise integration** | Local API, API-key controls, audit/RBAC mechanisms, connector diagnostics, offline-sync and approval-gated workflows |
+| **Deployment** | Windows development/build scripts, diagnostics, backup/restore and offline-oriented distribution infrastructure |
 
-## Three levels of alerts and interaction
+See [detailed feature status](docs/FEATURES.md), [architecture](docs/ARCHITECTURE.md) and [validation notes](docs/VALIDATION.md).
 
-- **Mixer / line operator:** short actionable alerts, audible headset guidance, operator questions and acknowledgements.
-- **QC specialist / quality engineer:** supporting snapshots, measurements, root-cause evidence and review/approval controls.
-- **Production / project manager:** consolidated exceptions, performance trends and escalation information.
-
-Specific delivery/escalation policies must be configured and validated for the actual site. QCVision assists authorized personnel; it is **not** an autonomous production-stop or product-release controller.
-
-## How the platform works
+## How QCVision works
 
 ```text
-Raw meat → Preparation → Grinding → Dosing → Mixing → QC → Discharge
-    |           |            |        |        |       |        |
-    +-----------+------------+--------+--------+-------+--------+
-                                |
-                 Cameras / batch context / sensors*
-                                |
-                    Local computer-vision rules
-                                |
-                   Product + process assessment
-                                |
-                     Evidence and quality events
-                                |
-             +------------------+------------------+
-             |                  |                  |
-      Operator / headset   QC engineer       Production manager
-      Immediate guidance   Review & approval  Trends & escalation
-             +------------------+------------------+
-                                |
-                   Reports / audit / Factory Memory
-                                |
-                    Optional Gemini AI review
-
-* Sensor integration depends on available connectors and site commissioning.
+Raw-meat receipt → Preparation / grinding → Mixing → In-process QC → Discharge
+       |                    |                  |             |               |
+       +--------------------+------------------+-------------+---------------+
+                                            |
+                         Cameras / video / batch context / connected data
+                                            |
+                            Local visual measurements + detectors
+                                            |
+                           Product health + process health + events
+                                            |
+                            Evidence + rules + quality intelligence
+                                            |
+                 +--------------------------+--------------------------+
+                 |                          |                          |
+          Operator / headset            QC specialist         Production manager
+          Real-time guidance          Review and approval       Trends and escalation
+                 +--------------------------+--------------------------+
+                                            |
+                              Audit trail + reports + memory
+                                            |
+                            Optional Gemini-supported review
 ```
 
-## Getting started (Windows development)
+## Core capabilities
 
-The source is oriented toward **Windows 10/11 x64 and Python 3.11**. Run the included scripts **from the repository root**:
+### 1. Live food-production and mixing inspection
+Analyze images, temporal video and compatible USB/IP camera feeds. Configure inspection regions, detector profiles and Golden Batch references. For mixing scenarios, use visible indicators such as color, surface texture, coverage and aeration patterns as **quality-support evidence**, not direct laboratory measurements.
+
+### 2. Voice-guided operators
+Deliver brief spoken warnings through a configured headset/audio output, while healthy/pass outcomes can remain silent. The operator interaction design includes the wake word **Vision / ویژن** and Persian-language questions when Windows speech components support them. Speech recognition and background-noise robustness depend on the deployed device and environment.
+
+### 3. Three-level quality communication
+Support different information needs for production operators, QC specialists and managers. Operational messages should be concise and actionable, QC views should provide supporting evidence, and managers should see aggregated patterns and unresolved issues. Approval and escalation remain governed by authorized factory personnel.
+
+### 4. Human-supervised quality intelligence
+Combine local detectors and rules with factory history, root-cause hypotheses, knowledge-based briefings and recorded decisions. Optional Google Gemini review may enrich interpretations when configured, but local operation remains the core design.
+
+### 5. Production performance and traceability
+Use inspection history, production runs, shifts, downtime, SPC, Cp/Cpk and OEE dashboards to study process stability and recurring deviations. Batch-level traceability depends on reliable data entry, identifiers, integration and site procedures.
+
+## Screenshots and demonstration
+
+Add **real screenshots from a running QCVision build** to `screenshots/` and link them here. Recommended images: production overview, mixing-camera monitoring, operator voice/alert screen, product/process health assessment, QC review workspace and management dashboard. This package does not fabricate screenshots.
+
+## Getting started (development)
+
+**Target:** Windows 10/11 x64; Python **3.11** for the provided development scripts.
 
 ```bat
-scripts\SETUP_DEV_ENV.bat
-scripts\RUN_VISIONQC.bat
+SETUP_DEV_ENV.bat
+RUN_VISIONQC.bat
 ```
 
-Alternatively, set up a compatible Python environment, install `requirements-dev.txt`, then run:
+Alternatively, configure a Python 3.11 virtual environment, install `requirements-dev.txt` and run:
 
 ```bat
 python main.py
 ```
 
-Run developer tests:
+Run automated tests:
 
 ```bat
-scripts\RUN_TESTS.bat
+RUN_TESTS.bat
 ```
 
 Or:
@@ -101,28 +132,28 @@ Or:
 python -m pytest -q
 ```
 
-Build and packaging entry points are located in `scripts/` (`BUILD_RELEASE.bat`, `BUILD_WINDOWS_APP.bat`, and `BUILD_WINDOWS_INSTALLER.bat`). They resolve the repository root before running. The PyInstaller spec is in `build_tools/VisionQC.spec`.
+For Windows packaging, inspect `BUILD_RELEASE.bat`, `BUILD_WINDOWS_APP.bat` and `BUILD_WINDOWS_INSTALLER.bat` and verify their prerequisites on the target build machine.
 
-### Optional Gemini review
+### Optional Gemini integration
 
-Copy `.env.example` to `.env` and provide your own `GEMINI_API_KEY`. Do not commit `.env`, API keys, proprietary recipes, production images, or identifiable factory data. Cloud review may transmit selected content to the provider and should require factory authorization.
+Copy `.env.example` to `.env` and configure `GEMINI_API_KEY`. **Never commit** `.env`, secrets, proprietary recipes, raw production records or identifiable factory images. Cloud AI use may send images and contextual data to a provider and requires a plant-approved confidentiality policy.
 
-## Architecture and documentation
+## Technology and architecture
 
-The application uses **PySide6**, **OpenCV / NumPy**, **SQLite / SQLAlchemy**, and **ReportLab**, alongside local analysis and integration modules. Historical sprint, acceptance, and release reports are preserved but moved out of the repository root.
+The application uses **PySide6** for Windows UI, **OpenCV/NumPy** for local visual analysis, **SQLite/SQLAlchemy** for persistence and **ReportLab** for reports, with layered domain, services, infrastructure and integration components. See [architecture](docs/ARCHITECTURE.md).
 
-- [Documentation index](docs/README.md)
-- [Architecture notes](docs/architecture/ARCHITECTURE_SPRINT_1.md)
-- [Release notes](docs/releases/)
-- [Sprint acceptance evidence](docs/sprints/acceptance/)
-- [Development history](docs/releases/CHANGELOG.md)
+## Verification and limitations
 
-## Validation and limitations
+The supplied source export (`QCVision-main.zip`, provided 2026-11-03) includes automated test coverage; the preceding documentation review reported **122 passing developer tests**. These are not proof of food-safety accuracy, field reliability, cybersecurity certification or successful plant commissioning. See [validation and limitations](docs/VALIDATION.md).
 
-The repository contains automated tests and engineering evidence, but source-level testing alone does **not** establish production accuracy, cybersecurity certification, HACCP compliance, or commissioning under real factory lighting, noise, and operating conditions. The platform does not replace calibrated instrumentation, laboratory tests, or a food business's authorized release procedures.
+QCVision is **decision-support software, not an autonomous machine controller or a substitute for HACCP procedures, laboratory testing, calibrated sensors or qualified human release decisions**. Visual appearance alone cannot establish microbiological safety, exact composition or temperatures.
 
-## Maintainer and license
+## Roadmap and development history
 
-Maintainer: [Mohsen Khoram Dastjerdi](https://github.com/mohsen3388). No license was found in this source archive; reuse rights should not be assumed.
+The repository contains documentation from multiple VisionQC development tracks. See [roadmap](docs/ROADMAP.md) and `CHANGELOG.md` for milestones; do not assume that a historical sprint or release note represents an independently validated production installation.
 
-For the complete root-level script inventory and usage, see [scripts/README.md](scripts/README.md).
+## Maintainer and licensing
+
+**Maintainer:** [Mohsen Khoram Dastjerdi](https://github.com/mohsen3388)
+
+This repository is currently private. No license file was identified in the supplied archive; do not assume public reuse permission.
