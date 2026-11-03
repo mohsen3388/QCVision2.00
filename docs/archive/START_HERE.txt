@@ -1,0 +1,10 @@
+VISIONQC CLEAN START
+
+1. Delete or ignore all previous VisionQC folders.
+2. Extract this ZIP to a normal folder such as E:\VisionQC_Clean.
+3. Do NOT use Run as administrator.
+4. Double-click CLEAN_SETUP_AND_RUN.bat.
+5. On later runs, double-click RUN_VISIONQC_CLEAN.bat.
+
+Important: Python 3.11 x64 is required only for this source-based clean run.
+The script always works from its own folder and will never create .venv under C:\Windows\System32.

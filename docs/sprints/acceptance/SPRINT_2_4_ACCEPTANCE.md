@@ -1,0 +1,21 @@
+# Sprint 2.4 Acceptance Checklist
+
+- [x] ALL FEATURES remains the central complete capability menu.
+- [x] First-run wizard is shown for a new installation.
+- [x] Non-technical user can configure factory, operator, storage and default camera.
+- [x] Local SQLite database initializes automatically.
+- [x] Batch Workspace creates and updates production batches.
+- [x] Accept/Reject requires explicit confirmation.
+- [x] History page shows locally stored batch records.
+- [x] Settings & Diagnostics page is directly accessible.
+- [x] Camera connection can be tested from setup/settings.
+- [x] Offline support bundle can be exported.
+- [x] Build script runs automated tests before PyInstaller.
+- [x] Inno Setup script produces a single installer target.
+- [x] Application data is stored outside Program Files and retained on uninstall.
+- [ ] Windows 10 physical-machine smoke test.
+- [ ] Windows 11 physical-machine smoke test.
+- [ ] USB camera hardware validation.
+- [ ] RTSP/IP camera hardware validation.
+- [ ] Microsoft Defender/SmartScreen installer validation.
+- [ ] Commercial code-signing certificate integration.

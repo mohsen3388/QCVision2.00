@@ -1,0 +1,168 @@
+{
+  "source_path": "/tmp/tmpv0jlljd4/sample.png",
+  "width": 640,
+  "height": 480,
+  "roi": [
+    40,
+    40,
+    540,
+    380
+  ],
+  "metrics": {
+    "Image Quality": {
+      "brightness": 132.382,
+      "contrast": 4.932,
+      "sharpness_laplacian": 65.153,
+      "focus_score": 16.288,
+      "dynamic_range": 0.0,
+      "dark_clipping_percent": 0.0,
+      "light_clipping_percent": 0.0,
+      "exposure_quality": 100.0,
+      "entropy": 0.053,
+      "noise_proxy": 0.201
+    },
+    "Color": {
+      "rgb_r_mean": 155.358,
+      "rgb_r_std": 4.624,
+      "rgb_g_mean": 125.388,
+      "rgb_g_std": 5.009,
+      "rgb_b_mean": 105.448,
+      "rgb_b_std": 5.78,
+      "hsv_h_mean": 11.982,
+      "hsv_h_std": 0.231,
+      "hsv_s_mean": 81.761,
+      "hsv_s_std": 3.083,
+      "hsv_v_mean": 155.358,
+      "hsv_v_std": 4.624,
+      "lab_l_mean": 140.364,
+      "lab_l_std": 4.701,
+      "lab_a_mean": 136.988,
+      "lab_a_std": 0.154,
+      "lab_b_mean": 142.958,
+      "lab_b_std": 0.539,
+      "color_uniformity": 98.202,
+      "low_saturation_percent": 0.0
+    },
+    "Texture": {
+      "edge_density": 0.723,
+      "gradient_mean": 2.747,
+      "local_variation": 0.77,
+      "texture_uniformity": 97.689
+    },
+    "Surface": {
+      "bubble_candidate_count": 3.0,
+      "bubble_candidate_density": 3.655,
+      "oily_region_candidate_percent": 0.597,
+      "specular_reflection_percent": 0.0
+    }
+  },
+  "findings": [
+    {
+      "rule_id": "IMG-BRIGHT-001",
+      "title": "Image brightness outside preferred range",
+      "severity": "Warning",
+      "triggered": false,
+      "confidence": 61.31,
+      "reason": "The average grayscale brightness is outside the provisional acquisition range.",
+      "evidence": {
+        "brightness": 132.382,
+        "preferred_range": "70\u2013200"
+      },
+      "recommendation": "Check lighting, camera angle and exposure before interpreting product quality.",
+      "source": "Global Visual Knowledge"
+    },
+    {
+      "rule_id": "IMG-FOCUS-001",
+      "title": "Low focus reliability",
+      "severity": "Warning",
+      "triggered": true,
+      "confidence": 88.71,
+      "reason": "Insufficient edge definition can reduce the reliability of texture and surface findings.",
+      "evidence": {
+        "focus_score": 16.288,
+        "minimum": 35
+      },
+      "recommendation": "Clean the lens, stabilize the camera and refocus.",
+      "source": "Global Visual Knowledge"
+    },
+    {
+      "rule_id": "IMG-EXPOSURE-001",
+      "title": "Exposure clipping detected",
+      "severity": "Attention",
+      "triggered": false,
+      "confidence": 75.0,
+      "reason": "A significant fraction of pixels has lost detail in dark or bright regions.",
+      "evidence": {
+        "dark_clipping_percent": 0.0,
+        "light_clipping_percent": 0.0,
+        "maximum_combined": 5
+      },
+      "recommendation": "Reduce reflections or adjust illumination and exposure.",
+      "source": "Global Visual Knowledge"
+    },
+    {
+      "rule_id": "COLOR-UNIFORM-001",
+      "title": "Color variation requires review",
+      "severity": "Attention",
+      "triggered": false,
+      "confidence": 65.0,
+      "reason": "LAB channel variation is higher than the provisional uniformity threshold.",
+      "evidence": {
+        "color_uniformity": 98.202,
+        "minimum": 65
+      },
+      "recommendation": "Review mixing uniformity and compare with an approved Golden Batch.",
+      "source": "Global Visual Knowledge"
+    },
+    {
+      "rule_id": "TEXTURE-UNIFORM-001",
+      "title": "Texture uniformity below preferred level",
+      "severity": "Attention",
+      "triggered": false,
+      "confidence": 65.0,
+      "reason": "Local grayscale variation indicates an uneven visual texture.",
+      "evidence": {
+        "texture_uniformity": 97.689,
+        "local_variation": 0.77,
+        "minimum": 60
+      },
+      "recommendation": "Inspect mixing stage, product surface and camera reflections.",
+      "source": "Global Visual Knowledge"
+    },
+    {
+      "rule_id": "SURFACE-BUBBLE-001",
+      "title": "Possible elevated bubble-like regions",
+      "severity": "Warning",
+      "triggered": false,
+      "confidence": 36.83,
+      "reason": "Circular structures were detected, but folds and reflections can create false candidates.",
+      "evidence": {
+        "candidate_count": 3.0,
+        "candidate_density": 3.655,
+        "specular_reflection_percent": 0.0,
+        "provisional_threshold": 18
+      },
+      "recommendation": "Request manual review and select the correct process stage before making a batch decision.",
+      "source": "Global Visual Knowledge"
+    },
+    {
+      "rule_id": "SURFACE-OIL-001",
+      "title": "Possible oily or highly reflective regions",
+      "severity": "Attention",
+      "triggered": false,
+      "confidence": 46.19,
+      "reason": "Low-saturation bright areas exceed the provisional candidate threshold.",
+      "evidence": {
+        "oily_region_candidate_percent": 0.597,
+        "provisional_threshold": 12
+      },
+      "recommendation": "Inspect the product surface and eliminate lighting reflection as a cause.",
+      "source": "Global Visual Knowledge"
+    }
+  ],
+  "visual_health_score": 71.07,
+  "analysis_confidence": 50.7,
+  "status": "Attention",
+  "created_at": "2026-07-27T18:32:36.721320+00:00",
+  "engine_version": "0.2.1"
+}

@@ -1,0 +1,9 @@
+VisionQC 4.3 — Sprint 4 Calibration & Validation
+
+1) RUN_VISIONQC.bat را اجرا کنید.
+2) از منوی Navigate > Configuration وارد Calibration & Validation شوید.
+3) Template دیگ اختلاط را انتخاب کنید.
+4) نمونه‌های دارای نظر کارشناس را در پنج سطح ثبت کنید.
+5) Validation Report را اجرا کنید.
+6) پس از پاس‌شدن Production Gate، مسئول QC نتیجه را تأیید کند.
+7) سپس Template همان نسخه را از Quality Configuration Studio در Production منتشر کنید.
